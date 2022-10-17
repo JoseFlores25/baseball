@@ -21,8 +21,18 @@ const Team = () => {
     setTeam(team);
   };
 
+  const updatePlayer = (team) => {
+    setTeam(team);
+  };
+
   const players = team?.players?.map((p) => (
-    <Player deletePlayer={deletePlayer} key={p.id} player={p} />
+    <Player
+      deletePlayer={deletePlayer}
+      updatePlayer={updatePlayer}
+      key={p.id}
+      player={p}
+      team={team}
+    />
   ));
   return (
     <div>
