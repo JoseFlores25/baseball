@@ -17,7 +17,13 @@ const Team = () => {
       });
   }, []);
 
-  const players = team.players.map((p) => <Player key={p.id} player={p} />);
+  const deletePlayer = (team) => {
+    setTeam(team);
+  };
+
+  const players = team?.players?.map((p) => (
+    <Player deletePlayer={deletePlayer} key={p.id} player={p} />
+  ));
   return (
     <div>
       <br />
