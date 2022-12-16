@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { PlayerList } from "./TeamForm";
 
 const PlayerForm = () => {
   const [teams, setTeams] = useState([]);
@@ -19,11 +20,7 @@ const PlayerForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addPlayer(player);
-    setPlayer({
-      name: "",
-      position: "",
-      team: null,
-    });
+    setPlayer({});
   };
 
   const addPlayer = (player) => {
@@ -34,20 +31,24 @@ const PlayerForm = () => {
         Accept: "application/json",
       },
       body: JSON.stringify({
-        name: player.name,
-        position: player.position,
-        team_id: player.team_id,
+        name: player?.name,
+        position: player?.position,
+        team_id: player?.team_id,
       }),
-    });
+    }).then(() => handleGetTeams());
   };
 
   useEffect(() => {
+    handleGetTeams();
+  }, []);
+
+  const handleGetTeams = () => {
     fetch("http://localhost:9292/teams")
       .then((res) => res.json())
       .then((data) => {
         setTeams(data);
       });
-  }, []);
+  };
 
   const teamsList = teams.map((t) => <option value={t.id}>{t.name}</option>);
 
@@ -88,6 +89,7 @@ const PlayerForm = () => {
         <br />
         <input type="submit" value="Create Player" class="bg-green-400" />
       </form>
+      <PlayerList teams={teams} />
     </div>
   );
 };

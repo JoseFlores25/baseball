@@ -1,5 +1,25 @@
 import React, { useState } from "react";
 
+export const PlayerList = ({ teams }) => {
+  const renderPlayerName = (player) => {
+    return player;
+  };
+  return (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        {teams.map((team) => (
+          <div>
+            <div style={{ margin: 20 }}>{team.name}</div>
+            {team.players.map((players) => (
+              <div>{players.name}</div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const TeamForm = () => {
   const [team, setTeam] = useState({
     name: "",
@@ -51,6 +71,7 @@ const TeamForm = () => {
         <br />
         <input type="submit" value="Create Team" class="bg-green-400" />
       </form>
+      {/* <PlayerList /> */}
     </div>
   );
 };
